@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.KickAthon;
+package org.firstinspires.ftc.teamcode.Teste;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

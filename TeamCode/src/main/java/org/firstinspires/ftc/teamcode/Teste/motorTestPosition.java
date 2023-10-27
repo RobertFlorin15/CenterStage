@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.KickAthon;
+package org.firstinspires.ftc.teamcode.Teste;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@TeleOp(name="Test_motor")
+@TeleOp(name = "Test_motorPozitie", group = "Test")
 public class motorTestPosition extends LinearOpMode {
 
     public DcMotorEx motor_testat = null;
