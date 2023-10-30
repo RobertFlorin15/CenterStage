@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Detection;
+package org.firstinspires.ftc.teamcode.Detection.test;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
@@ -11,6 +11,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class Detection extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
+    Mat blue_output = new Mat();
+    Mat red_output = new Mat();
     //mat reprezinta matrixul, o variabila ce poate stoca imaginea
     public Detection(Telemetry t){
         telemetry = t;
@@ -48,17 +50,30 @@ public class Detection extends OpenCvPipeline {
 
         //intervalul din HSV pentru rosu
         Scalar lowHSV_red = new Scalar(0, 50, 70);
-        Scalar highHSv_red = new Scalar(60, 255, 255);
+        Scalar highHSV_red = new Scalar(20, 255, 255);
 
         //intervalul din HSV pentru albastru
-        Scalar lowHSV_blue = new Scalar(180, 50, 70);
-        Scalar highHSv_blue = new Scalar(300, 255, 255);
+        Scalar lowHSV_blue = new Scalar(110, 50, 50);
+        Scalar highHSV_blue = new Scalar(130, 255, 255);
 
         /*thresholing, adica segmentarea imaginii, mai exact separam obiectele ce se incadreaza
         in aceste intervale de culoare din spectrul HSV de restul imaginii
         in acest fel imaginea devine alba*/
-        Core.inRange(mat, lowHSV_red, highHSv_red, mat);
-        Core.inRange(mat, lowHSV_blue, highHSv_blue, mat);
+        Core.inRange(mat, lowHSV_red, highHSV_red, red_output);
+        Core.inRange(mat, lowHSV_blue, highHSV_blue, blue_output);
+
+        double blue = Core.sumElems(blue_output).val[0] / 255;
+        double red = Core.sumElems(red_output).val[0] / 255;
+
+
+        if(blue > red) {
+            mat = blue_output;
+        }
+        else {
+            mat = red_output;
+        }
+
+
 
         Rect leftRect = new Rect(1, 1, 425, 719);
         Rect centerRect = new Rect(426, 1, 425, 719);

@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name = "Test_motor", group = "Test")
 public class motor_test extends LinearOpMode {
     public DcMotorEx motor = null;
-
+    double power = 0.5;
+    double modifier = 0.000001;
     @Override
     public void runOpMode() throws InterruptedException {
         /*SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -26,12 +27,27 @@ public class motor_test extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            if(gamepad1.dpad_up) {
+                power+=modifier;
+            }
+            if(gamepad1.dpad_down) {
+                power-=modifier;
+            }
             if(gamepad1.x) {
-                motor.setPower(0.5);
+                motor.setPower(power);
             }
             else {
                 motor.setPower(0);
             }
+            if(gamepad1.a) {
+                motor.setDirection(DcMotorSimple.Direction.REVERSE);
+            }
+            if(gamepad1.b) {
+                motor.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
+            telemetry.addData("Power: ", power);
+            telemetry.addData("Direction", motor.getDirection());
+            telemetry.update();
         }
     }
 }
