@@ -8,24 +8,19 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class Detection_blue extends OpenCvPipeline {
-    Telemetry telemetry;
+public class TeamProp_blue extends OpenCvPipeline {
     Mat mat = new Mat();
     Mat blue_output = new Mat();
     Mat red_output = new Mat();
     //mat reprezinta matrixul, o variabila ce poate stoca imaginea
-    public Detection_blue(Telemetry t){
-        telemetry = t;
-    }
 
 
 
-    public enum Location{
+    public enum Location {
         LEFT,
         CENTER,
         RIGHT
     }
-    private static Location location;
 
     //aceste linii de cod ne permiteau sa cautam doar intr-o anumita zona prestabilita
     //insa noi avem nevoie sa cautam pe ecran, in 3 zone, dar care sa acopere toata suprafata
@@ -42,6 +37,7 @@ public class Detection_blue extends OpenCvPipeline {
             new Point(280, 75));
 
      */
+    private volatile Location position = Location.LEFT;
 
     @Override
 
@@ -78,39 +74,25 @@ public class Detection_blue extends OpenCvPipeline {
         right.release();
 
         //pentru debugging, ne ofera valorile obtinute in fiecare zona
-        telemetry.addData("Left value: ", (int) Core.sumElems(left).val[0]);
-        telemetry.addData("Center value: ", (int) Core.sumElems(center).val[0]);
-        telemetry.addData("Right value: ", (int) Core.sumElems(right).val[0]);
 
-        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
-        telemetry.addData("Center percentage", Math.round(centerValue * 100) + "%");
-        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
 
 
         if(leftValue > centerValue && leftValue > rightValue) {
-            location = Location.LEFT;
-            telemetry.addData("Team Prop location: ", "left");
+            position = Location.LEFT;
         }
         else if(centerValue > leftValue && centerValue > rightValue) {
-            location = Location.CENTER;
-            telemetry.addData("Team Prop location: ", "center");
+            position = Location.CENTER;
         }
         else {
-            location = Location.RIGHT;
-            telemetry.addData("Team Prop location: ", "right");
-
+            position = Location.RIGHT;
         }
-
-        telemetry.update();
-
         //pentru a colora dreptunghiurile in care vom detecta TeamProp-ul
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
         return mat;
     }
 
-    public static Location getLocation(){
-        return location;
+    public Location getLocation() {
+        return position;
     }
-
 }

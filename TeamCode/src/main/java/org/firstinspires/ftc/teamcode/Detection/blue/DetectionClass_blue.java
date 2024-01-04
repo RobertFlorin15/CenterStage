@@ -1,29 +1,33 @@
 package org.firstinspires.ftc.teamcode.Detection.blue;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Detection.blue.Detection_blue;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name = "Vision_blue", group = "Test")
-public class Test_blue extends LinearOpMode {
+public class DetectionClass_blue extends TeamProp_blue {
+    HardwareMap hardwareMap;
     OpenCvWebcam webcam;
+    TeamProp_blue detectionBlue = new TeamProp_blue();
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public DetectionClass_blue(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+    }
+
+
+    public void init() {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "webcam");
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("webcamID", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, webcamID);
 
         //aici scriem Pipeline-ul
-        Detection_blue detection = new Detection_blue(telemetry);
-        webcam.setPipeline(detection);
+        detectionBlue = new TeamProp_blue();
+        webcam.setPipeline(detectionBlue);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -35,12 +39,18 @@ public class Test_blue extends LinearOpMode {
             @Override
             public void onError(int errorCode) {
             }
+
         });
+    }
 
-
-        waitForStart();
-
+    public void stopStreaming(){
         webcam.stopStreaming();
     }
+    public Location getLocation() {
+        return detectionBlue.getLocation();
+    }
+
+
 }
+
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "SERVO TEST")
+@TeleOp(name = "Servo test", group = "Test")
 public class servo_test extends LinearOpMode {
     Servo servo = null;
     double modifier = 0.0001;
@@ -14,7 +14,7 @@ public class servo_test extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        servo = hardwareMap.get(Servo.class, "servo_orizontal" );
+        servo = hardwareMap.get(Servo.class, "aripa_stanga" );
         servo.setPosition(0.2);
         waitForStart();
 

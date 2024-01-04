@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Test_motor", group = "Test")
+@TeleOp(name = "Motor test", group = "Test")
 public class motor_test extends LinearOpMode {
     public DcMotorEx motor = null;
+    double modifier = 0.00001;
     double power = 0.5;
-    double modifier = 0.000001;
     @Override
     public void runOpMode() throws InterruptedException {
         /*SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
