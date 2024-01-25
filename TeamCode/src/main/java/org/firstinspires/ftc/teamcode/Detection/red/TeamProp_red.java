@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Detection.red;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -8,15 +7,11 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class Detection_red extends OpenCvPipeline {
-    Telemetry telemetry;
+public class TeamProp_red extends OpenCvPipeline {
     Mat mat = new Mat();
     Mat blue_output = new Mat();
     Mat red_output = new Mat();
     //mat reprezinta matrixul, o variabila ce poate stoca imaginea
-    public Detection_red(Telemetry t){
-        telemetry = t;
-    }
 
 
 
@@ -25,7 +20,7 @@ public class Detection_red extends OpenCvPipeline {
         CENTER,
         RIGHT
     }
-    private static Location location;
+    private static Location position = Location.LEFT;
 
     //aceste linii de cod ne permiteau sa cautam doar intr-o anumita zona prestabilita
     //insa noi avem nevoie sa cautam pe ecran, in 3 zone, dar care sa acopere toata suprafata
@@ -49,8 +44,8 @@ public class Detection_red extends OpenCvPipeline {
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
 
         //intervalul din HSV pentru rosu
-        Scalar lowHSV_red = new Scalar(0, 50, 70);
-        Scalar highHSV_red = new Scalar(30, 255, 255);
+        Scalar lowHSV_red = new Scalar(0, 35, 50); //0, 50, 70
+        Scalar highHSV_red = new Scalar(45, 255, 255); //30
 
 
 
@@ -78,31 +73,16 @@ public class Detection_red extends OpenCvPipeline {
         center.release();
         right.release();
 
-        //pentru debugging, ne ofera valorile obtinute in fiecare zona
-        telemetry.addData("Left value: ", (int) Core.sumElems(left).val[0]);
-        telemetry.addData("Center value: ", (int) Core.sumElems(center).val[0]);
-        telemetry.addData("Right value: ", (int) Core.sumElems(right).val[0]);
-
-        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
-        telemetry.addData("Center percentage", Math.round(centerValue * 100) + "%");
-        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
-
 
         if(leftValue > centerValue && leftValue > rightValue) {
-            location = Location.LEFT;
-            telemetry.addData("Team Prop location: ", "left");
+            position = Location.LEFT;
         }
         else if(centerValue > leftValue && centerValue > rightValue) {
-            location = Location.CENTER;
-            telemetry.addData("Team Prop location: ", "center");
+            position = Location.CENTER;
         }
         else {
-            location = Location.RIGHT;
-            telemetry.addData("Team Prop location: ", "right");
-
+            position = Location.RIGHT;
         }
-
-        telemetry.update();
 
         //pentru a colora dreptunghiurile in care vom detecta TeamProp-ul
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
@@ -110,8 +90,8 @@ public class Detection_red extends OpenCvPipeline {
         return mat;
     }
 
-    public static Location getLocation(){
-        return location;
+    public Location getLocation(){
+        return position;
     }
 
 }

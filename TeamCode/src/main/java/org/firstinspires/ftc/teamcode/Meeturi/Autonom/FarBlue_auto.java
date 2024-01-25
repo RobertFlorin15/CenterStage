@@ -1,19 +1,20 @@
-package org.firstinspires.ftc.teamcode.Meeturi;
+package org.firstinspires.ftc.teamcode.Meeturi.Autonom;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Detection.blue.DetectionClass_blue;
 import org.firstinspires.ftc.teamcode.Detection.blue.TeamProp_blue;
+import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
 
-@Autonomous(name = "Albastru_stanga")
-public class AutoBlueLeft extends LinearOpMode {
-    DcMotorEx rightFront, rightBack, leftFront, leftBack;
+
+@Autonomous(name = "Albastru departe")
+public class FarBlue_auto extends LinearOpMode {
+    DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;
 
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
@@ -21,9 +22,11 @@ public class AutoBlueLeft extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 3.78;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
+    static final double DRIVE_SPEED = 0.4;
     static final double TURN_SPEED = 0.3;
+    public Servo avion;
     ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime rotire = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,13 +34,16 @@ public class AutoBlueLeft extends LinearOpMode {
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-
+        motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
+        avion=hardwareMap.get(Servo.class, "avion");
         DetectionClass_blue detectare = new DetectionClass_blue(hardwareMap);
         TeamProp_blue.Location TeamProp_location = TeamProp_blue.Location.LEFT;
 
         //motoarele din stanga sunt in onglida, asa ca primesc REVERSE pentru a se roti in directia FORWARD
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor_intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -49,6 +55,11 @@ public class AutoBlueLeft extends LinearOpMode {
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         telemetry.addData("Starting at", "%7d :%7d",
                 leftFront.getCurrentPosition(),
                 rightFront.getCurrentPosition(),
@@ -56,29 +67,48 @@ public class AutoBlueLeft extends LinearOpMode {
                 rightBack.getCurrentPosition());
         telemetry.update();
 
-        DetectionClass_blue detectionClassBlue = new DetectionClass_blue(hardwareMap);
 
-        //detectionClassBlue.init();
+        detectare.init();
 
+        avion.setPosition(0.64444);
 
-        /*while (!opModeIsActive()) {
-            parkingPosition = TeamProp_blue.getLocation();
+        while (!opModeIsActive()) {
+            TeamProp_location = detectare.getLocation();
+            telemetry.addData("Location", TeamProp_location);
+            telemetry.update();
         }
 
-         */
         waitForStart();
 
 
-            if (TeamProp_location == TeamProp_blue.Location.LEFT) {
-                encoderDrive(DRIVE_SPEED, 3, 1, 4);
-
-            } else if (TeamProp_location == TeamProp_blue.Location.RIGHT) {
-                encoderDrive(DRIVE_SPEED, 3, 1, 4);
-
-            } else {
-                encoderDrive(DRIVE_SPEED, 3, 1, 4);
-
+        if (TeamProp_location == TeamProp_blue.Location.LEFT) {
+            encoderDrive(DRIVE_SPEED, 27.5, 27.5, 4);
+            encoderDrive(DRIVE_SPEED, -23, 23, 4);
+            rotire.reset();
+            while(rotire.seconds() <= 2 && !isStopRequested()) {
+                motor_intake.setPower(0.3);
             }
+            motor_intake.setPower(0);
+        }
+
+        else if (TeamProp_location == TeamProp_blue.Location.RIGHT) {
+            encoderDrive(DRIVE_SPEED, 27.5, 27.5, 4);
+            encoderDrive(DRIVE_SPEED, 23, -23, 4);
+            rotire.reset();
+            while(rotire.seconds() <= 2 && !isStopRequested()) {
+                motor_intake.setPower(0.3);
+            }
+            motor_intake.setPower(0);
+        }
+
+        else {
+            encoderDrive(DRIVE_SPEED, 26 ,26, 4);
+            rotire.reset();
+            while(rotire.seconds() <= 2 && !isStopRequested()) {
+                motor_intake.setPower(0.3);
+            }
+            motor_intake.setPower(0);
+        }
 
 
 
@@ -92,8 +122,8 @@ public class AutoBlueLeft extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = leftFront.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = rightFront.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newLeftTarget = leftBack.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = rightBack.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             leftFront.setTargetPosition(newLeftTarget);
             rightFront.setTargetPosition(newRightTarget);
             leftBack.setTargetPosition((int) (newLeftTarget + 2.244));
@@ -116,7 +146,6 @@ public class AutoBlueLeft extends LinearOpMode {
                     (runtime.seconds() < timeoutS) &&
                     (leftFront.isBusy() && rightFront.isBusy()) &&
                     (leftBack.isBusy() && rightBack.isBusy())) {
-
                 // Display it for the driver.
                 telemetry.addData("Running to", " %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Currently at", " at %7d :%7d",

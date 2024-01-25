@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Detection.red;
+package org.firstinspires.ftc.teamcode.Detection.blue;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -12,9 +12,9 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name = "Vision_red", group = "Test")
-public class Test_red extends LinearOpMode {
-    TeamProp_red detection = new TeamProp_red();
+@Autonomous(name = "Vision_blue", group = "Test")
+public class Test_blue extends LinearOpMode {
+    TeamProp_blue detection = new TeamProp_blue();
     OpenCvWebcam webcam;
 
     @Override
@@ -24,7 +24,7 @@ public class Test_red extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, webcamID);
 
         //aici scriem Pipeline-ul
-        detection = new TeamProp_red();
+        detection = new TeamProp_blue();
         webcam.setPipeline(detection);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -49,4 +49,3 @@ public class Test_red extends LinearOpMode {
         webcam.stopStreaming();
     }
 }
-

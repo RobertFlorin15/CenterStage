@@ -14,8 +14,9 @@ public class servo_test extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        servo = hardwareMap.get(Servo.class, "aripa_stanga" );
-        servo.setPosition(0.2);
+        servo = hardwareMap.get(Servo.class, "servoC_ST" );
+        servo.setDirection(Servo.Direction.REVERSE);
+        servo.setPosition(0.0);
         waitForStart();
 
 
@@ -32,14 +33,6 @@ public class servo_test extends LinearOpMode {
             else if(gamepad1.dpad_down){
                 modifier -= change_modifier;
             }
-
-            if(gamepad1.left_trigger>0.1) {
-                servo.setPosition(servo.getPosition() - modifier * gamepad1.left_trigger);
-            }
-            if(gamepad1.right_trigger>0.1) {
-                servo.setPosition(servo.getPosition() + modifier  * gamepad1.right_trigger);
-            }
-
 
             telemetry.addData("POZITIE SERVO", servo.getPosition());
             telemetry.addData("MODIFIER", modifier);

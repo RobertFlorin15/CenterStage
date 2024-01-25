@@ -22,6 +22,7 @@ public class TeleOP extends LinearOpMode {
     public int modifier_glisiere = 50;
     boolean rotire = false;
     ElapsedTime rotire_timp = new ElapsedTime();
+    public Servo avion;
 
 
     @Override
@@ -33,12 +34,15 @@ public class TeleOP extends LinearOpMode {
 
         motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
         motor_lift = hardwareMap.get(DcMotorEx.class, "motor_lift");
+        avion = hardwareMap.get(Servo.class, "avion");
 
         motor_intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor_lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motor_intake.setDirection(DcMotorSimple.Direction.REVERSE);
         motor_lift.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        avion.setPosition(0.64444);
 
 
         //glisiera.init();
@@ -87,31 +91,6 @@ public class TeleOP extends LinearOpMode {
             }
 
              */
-
-            /*
-            test ridicare glisiere
-            if(gamepad1.a) {
-                motorDR_ENC.setTargetPosition(motorDR_ENC.getCurrentPosition() + modifier_glisiere);
-                motorST.setTargetPosition(motorST.getCurrentPosition() + modifier_glisiere);
-            }
-            else if(gamepad1.b) {
-                motorDR_ENC.setTargetPosition(motorDR_ENC.getCurrentPosition() - modifier_glisiere);
-                motorST.setTargetPosition(motorST.getCurrentPosition() - modifier_glisiere);
-
-            }
-            else {
-                motorDR_ENC.setTargetPosition(motorDR_ENC.getCurrentPosition());
-                motorST.setTargetPosition(motorST.getCurrentPosition());
-            }
-            if(gamepad1.dpad_up) {
-                modifier_glisiere++;
-            }
-            else if(gamepad1.dpad_down) {
-                modifier_glisiere--;
-            }
-
-             */
-
             if(gamepad2.x) {
                 motor_intake.setPower(0.6);
             }
@@ -122,8 +101,10 @@ public class TeleOP extends LinearOpMode {
                 motor_intake.setPower(0);
             }
 
-            /*
-            modul vechi de a ridica si de a cobori liftul
+
+
+
+            /*modul vechi de a ridica si de a cobori liftul
             if(gamepad2.a) {
                 motor_lift.setDirection(DcMotorSimple.Direction.REVERSE);
             }
@@ -140,15 +121,20 @@ public class TeleOP extends LinearOpMode {
 
              */
 
-            /*
-            if(gamepad1.right_bumper) {
-                stop.setPosition(0);
+            if(gamepad2.b) {
+                motor_lift.setPower(1);
             }
-            if(gamepad1.left_bumper) {
-                stop.setPosition(0);
+            else if(gamepad2.a) {
+                motor_lift.setPower(-1);
+            }
+            else {
+                motor_lift.setPower(0);
             }
 
-             */
+            if(gamepad2.left_bumper) {
+                avion.setPosition(0.8);
+            }
+
 
 
 
