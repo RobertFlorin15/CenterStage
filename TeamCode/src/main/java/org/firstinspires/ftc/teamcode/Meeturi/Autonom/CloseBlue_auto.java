@@ -23,10 +23,11 @@ public class CloseBlue_auto extends LinearOpMode {
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.4;
-    static final double TURN_SPEED = 0.3;
-    public Servo avion;
+    //static final double TURN_SPEED = 0.3;
+    public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servo_DR, servo_ST;
+
     ElapsedTime runtime = new ElapsedTime();
-    ElapsedTime rotire = new ElapsedTime();
+    //ElapsedTime rotire = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -34,15 +35,23 @@ public class CloseBlue_auto extends LinearOpMode {
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
-        avion = hardwareMap.get(Servo.class, "avion");
+
+        servo_DR = hardwareMap.get(Servo.class, "servo_DR");
+        servo_ST = hardwareMap.get(Servo.class, "servo_ST");
+        servoC_DR = hardwareMap.get(Servo.class, "servoC_DR");
+        servoC_ST = hardwareMap.get(Servo.class, "servoC_ST");
+        servo_extindere = hardwareMap.get(Servo.class, "servo_extindere");
+        servo_rotire = hardwareMap.get(Servo.class, "servo_rotire");
+
+        //motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
+        //avion = hardwareMap.get(Servo.class, "avion");
         DetectionClass_blue detectare = new DetectionClass_blue(hardwareMap);
         TeamProp_blue.Location TeamProp_location = TeamProp_blue.Location.LEFT;
 
-        //motoarele din stanga sunt in onglida, asa ca primesc REVERSE pentru a se roti in directia FORWARD
+        //motoarele din stanga sunt in oglinda, asa ca primesc REVERSE pentru a se roti in directia FORWARD
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        motor_intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        //motor_intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -70,7 +79,7 @@ public class CloseBlue_auto extends LinearOpMode {
 
         detectare.init();
 
-        avion.setPosition(0.64444);
+        //avion.setPosition(0.64444);
 
         while (!opModeIsActive()) {
             TeamProp_location = detectare.getLocation();
@@ -82,61 +91,22 @@ public class CloseBlue_auto extends LinearOpMode {
 
 
         if (TeamProp_location == TeamProp_blue.Location.LEFT) {
-            encoderDrive(DRIVE_SPEED, 27.5, 27.5, 4);
+            encoderDrive(DRIVE_SPEED, -27.5, -27.5, 4);
             encoderDrive(DRIVE_SPEED, -23, 23, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested()) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
-            encoderDrive(DRIVE_SPEED, -3.7, -3.7, 4);
-            encoderDrive(DRIVE_SPEED, -20, 20, 2);
-            encoderDrive(DRIVE_SPEED, 20, 20, 2);
-            encoderDrive(DRIVE_SPEED, 20, -20, 4);
-            encoderDrive(0.7, 19.7, 19.7, 4);
-            encoderDrive(DRIVE_SPEED, 24, 24, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested() ) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+            encoderDrive(DRIVE_SPEED, -68, -68, 4);
         }
 
         else if (TeamProp_location == TeamProp_blue.Location.RIGHT) {
-            encoderDrive(DRIVE_SPEED, 27.5, 27.5, 4);
-            encoderDrive(DRIVE_SPEED, 23, -23, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested()) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
-            encoderDrive(DRIVE_SPEED, -10, -10, 4);
-            encoderDrive(DRIVE_SPEED, -44, 44, 4);
-            encoderDrive(0.7, 10, 10, 4);
-            encoderDrive(DRIVE_SPEED, 7, 7, 4);
-            rotire.reset();
-            while( !isStopRequested() &&rotire.seconds() <= 2) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+            encoderDrive(DRIVE_SPEED, -27.5, -27.5, 4);
+            encoderDrive(DRIVE_SPEED, -23, 23, 4);
+            encoderDrive(DRIVE_SPEED, -68, -68, 4);
         }
 
         else {
-            encoderDrive(DRIVE_SPEED, 26 ,26, 4);
-            rotire.reset();
-            while( !isStopRequested() && rotire.seconds() <= 2) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
-            encoderDrive(DRIVE_SPEED, -4, -4, 2);
-            encoderDrive(DRIVE_SPEED, -22, 22, 2);
-            encoderDrive(0.7, 19.7, 19.7, 4);
-            encoderDrive(DRIVE_SPEED, 13, 13, 4);
-            rotire.reset();
-            while( !isStopRequested() && rotire.seconds() <= 2) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+            encoderDrive(DRIVE_SPEED, -27.5, -27.5, 4);
+            encoderDrive(DRIVE_SPEED, -23, 23, 4);
+            encoderDrive(DRIVE_SPEED, -23, -23, 4);
+            //kill f.g.
         }
 
 

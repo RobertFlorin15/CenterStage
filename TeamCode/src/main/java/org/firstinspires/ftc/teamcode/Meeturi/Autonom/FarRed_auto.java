@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Meeturi.Autonom;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
 @Autonomous(name = "Rosu departe")
 public class FarRed_auto extends LinearOpMode {
     DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;
+    public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servo_DR, servo_ST, servo_avion;
 
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
@@ -33,7 +35,14 @@ public class FarRed_auto extends LinearOpMode {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
-        avion=hardwareMap.get(Servo.class, "avion");
+        servo_DR = hardwareMap.get(Servo.class, "servo_DR");
+        servo_ST = hardwareMap.get(Servo.class, "servo_ST");
+        servoC_DR = hardwareMap.get(Servo.class, "servoC_DR");
+        servoC_ST = hardwareMap.get(Servo.class, "servoC_ST");
+        servo_extindere = hardwareMap.get(Servo.class, "servo_extindere");
+        servo_rotire = hardwareMap.get(Servo.class, "servo_rotire");
+        servo_avion = hardwareMap.get(Servo.class, "servo_avion");
+
         DetectionClass_red detectare = new DetectionClass_red(hardwareMap);
         TeamProp_red.Location TeamProp_location = TeamProp_red.Location.LEFT;
 
@@ -65,6 +74,13 @@ public class FarRed_auto extends LinearOpMode {
                 rightBack.getCurrentPosition());
         telemetry.update();
 
+        servo_DR.setPosition(0.12611);
+        servo_ST.setPosition(0.12611);
+        servo_rotire.setPosition(0.43777);
+        servoC_DR.setPosition(0.79);
+        servoC_ST.setPosition(0.217);
+        servo_extindere.setPosition(0.6127);
+
 
         detectare.init();
 
@@ -80,32 +96,23 @@ public class FarRed_auto extends LinearOpMode {
 
 
         if (TeamProp_location == TeamProp_red.Location.LEFT) {
-            encoderDrive(DRIVE_SPEED, 27.5, 27.5, 4);
+            encoderDrive(DRIVE_SPEED, 26, 26, 4);
             encoderDrive(DRIVE_SPEED, -23, 23, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested()) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+            encoderDrive(DRIVE_SPEED, -69, -69, 4);
+
         }
 
         else if (TeamProp_location == TeamProp_red.Location.RIGHT) {
-            encoderDrive(DRIVE_SPEED, 29, 29, 4);
-            encoderDrive(DRIVE_SPEED, 23, -23, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested()) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+            encoderDrive(DRIVE_SPEED, 26, 26, 4);
+            encoderDrive(DRIVE_SPEED, -23, 23, 4);
+            encoderDrive(DRIVE_SPEED, -69, -69, 4);
         }
 
         else {
-            encoderDrive(DRIVE_SPEED, 26 ,26, 4);
-            rotire.reset();
-            while(rotire.seconds() <= 2 && !isStopRequested()) {
-                motor_intake.setPower(0.3);
-            }
-            motor_intake.setPower(0);
+
+            encoderDrive(DRIVE_SPEED, 26, 26, 4);
+            encoderDrive(DRIVE_SPEED, -23, 23, 4);
+            encoderDrive(DRIVE_SPEED, -69, -69, 4);
         }
     }
 

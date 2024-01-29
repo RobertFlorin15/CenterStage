@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class BratModule {
     HardwareMap hardwareMap;
+
     public BratModule (HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
     }
@@ -26,22 +27,31 @@ public class BratModule {
     }
 
     //ridicarea bratului
+
+    //lalallalaalala bubuie dacă nu e brațul extins
     public void goDown() {
         servoDR.setPosition(0.0822222);
         servoST.setPosition(0.0822222);
     }
 
+    //sper să fie asta poziția pentru autonom (emoji lună)
+    public void autonom() {
+        servoDR.setPosition(0.6472);
+        servoST.setPosition(0.6472);
+    }
+
 
     //extinderea bratului
 
-    public void retras() {
+    /*public void retras() {
         servo_extindere.setPosition(0);
     }
 
+     */
+    //sper să nu se rotească în sensul greșit că nu mai avem braț (emoji lună)
     public void interior() {
         servo_extindere.setPosition(0.37777);
     }
-
     public void exterior() {
         servo_extindere.setPosition(0.635);
     }
