@@ -3,55 +3,55 @@ package org.firstinspires.ftc.teamcode.Meeturi;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Meeturi.Module.GlisieraModule;
-import org.firstinspires.ftc.teamcode.Meeturi.Module.IntakeModule;
-import org.firstinspires.ftc.teamcode.Meeturi.Module.BratModule;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-
-
-@TeleOp (name = "TeleOP")
+@TeleOp (name = "TeleOP original 1 dimineata IASI MERGE 84% - 5 erori deja")
 public class TeleOP extends LinearOpMode {
+    public DcMotorEx motorDR, motorST, motor_intake;
+    public Servo clapitaDR, clapitaST, bratDR, bratST, rotire, avion, servoDR, servoST;
 
-    public double mod;
-    public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servo_DR, servo_ST, servo_avion;
-    ElapsedTime coborare = new ElapsedTime();
+    public CRServo CR7;
+    double mod;
+
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servo_DR = hardwareMap.get(Servo.class, "servo_DR");
-        servo_ST = hardwareMap.get(Servo.class, "servo_ST");
-        servoC_DR = hardwareMap.get(Servo.class, "servoC_DR");
-        servoC_ST = hardwareMap.get(Servo.class, "servoC_ST");
-        servo_extindere = hardwareMap.get(Servo.class, "servo_extindere");
-        servo_rotire = hardwareMap.get(Servo.class, "servo_rotire");
-        servo_avion = hardwareMap.get(Servo.class, "servo_avion");
+        motorDR = hardwareMap.get(DcMotorEx.class, "motorDR");
+        motorST = hardwareMap.get(DcMotorEx.class, "motorST");
+        motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
 
+        motorDR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorST.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        GlisieraModule glisieraModule = new GlisieraModule(hardwareMap);
-        BratModule bratModule = new BratModule(hardwareMap);
-        IntakeModule intakeModule = new IntakeModule(hardwareMap);
+        motorST.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorDR.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //glisieraModule.init();
-        //bratModule.init();
-        //intakeModule.init();
+        clapitaDR = hardwareMap.get(Servo.class, "clapitaDR");
+        clapitaST = hardwareMap.get(Servo.class, "clapitaST");
+        bratDR = hardwareMap.get(Servo.class, "bratDR");
+        bratST = hardwareMap.get(Servo.class, "bratST");
+        rotire = hardwareMap.get(Servo.class, "rotire");
+        avion = hardwareMap.get(Servo.class, "avion");
+        servoDR = hardwareMap.get(Servo.class, "servoDR");
+        servoST = hardwareMap.get(Servo.class, "servoST");
 
-        //init
-        servoC_DR.setPosition(0.79);
-        servoC_ST.setPosition(0.217);
-        servo_DR.setPosition(0.097);
-        servo_ST.setPosition(0.097);
-        servo_rotire.setPosition(0.35777);
-        servo_extindere.setPosition(0.6127);
-        servo_avion.setPosition(0.04833);
+        CR7 = hardwareMap.get(CRServo.class, "CR7");
 
-
+        //pozitie init
+        clapitaDR.setPosition(0.8);
+        clapitaST.setPosition(0.216);
+        bratST.setPosition(0);
+        bratST.setPosition(0);
+        rotire.setPosition(0.77);
+        avion.setPosition(0.04833);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -73,74 +73,63 @@ public class TeleOP extends LinearOpMode {
 
             drive.update();
 
-            if (gamepad2.x) {
-                //init position
-                servo_DR.setPosition(0.12611);
-                servo_ST.setPosition(0.12611);
-                servo_rotire.setPosition(0.43777);
-                servoC_DR.setPosition(0.79);
-                servoC_ST.setPosition(0.217);
-                servo_extindere.setPosition(0.6127);
+            if (gamepad1.a) {
+                clapitaDR.setPosition(0.89);
+                clapitaST.setPosition(0);
+            }
+            else if (gamepad1.b) {
+                clapitaDR.setPosition(0.6183);
+                clapitaST.setPosition(0.4155);
             }
 
-            /*if (gamepad2.a) {
-                //autonom position
-                servo_DR.setPosition(0.6477);
-                servo_ST.setPosition(0.6477);
-                servo_extindere.setPosition(0.89166);
-                servo_rotire.setPosition(0.83055);
+            if (gamepad1.right_bumper) {
+                motorDR.setPower(0.77);
+                motorST.setPower(0.77);
             }
 
-
-
-            if (gamepad2.b) {
-                servo_DR.setPosition(0.121166);
-                servo_ST.setPosition(0.121166);
-                servo_extindere.setPosition(0.3316);
-                servo_rotire.setPosition(0.43777);
+            else if (gamepad1.left_bumper){
+                motorDR.setPower(-1);
+                motorST.setPower(-1);
             }
 
-             */
-
-            if (gamepad2.a) {
-                //intake position
-                servo_DR.setPosition(0.2);
-                servo_ST.setPosition(0.2);
-                servo_rotire.setPosition(0.42444);
-                servo_extindere.setPosition(0.37555);
-            }
-            if (gamepad2.b) {
-                servo_DR.setPosition(0.08);
-                servo_ST.setPosition(0.08);
+            else {
+                motorDR.setPower(0);
+                motorST.setPower(0);
             }
 
-            if (gamepad2.right_bumper) {
-                    //up position
-                servo_DR.setPosition(0.6);
-                servo_ST.setPosition(0.6);
-                servo_rotire.setPosition(0.84611);
-                servo_extindere.setPosition(0.021666);
-            }
-            if (gamepad2.left_trigger > 0.1) {
-                servoC_DR.setPosition(0.03722);
-                servoC_ST.setPosition(1);
-            }
-            if (gamepad2.right_trigger > 0.1) {
-                servoC_DR.setPosition(0.2611);
-                servoC_ST.setPosition(0.8577);
+            if (gamepad1.dpad_left) {
+                bratDR.setPosition(0);
+                bratST.setPosition(0);
+                rotire.setPosition(0.77);
+                clapitaDR.setPosition(0.6183);
+                clapitaST.setPosition(0.4155);
             }
 
-            if (gamepad2.dpad_up) {
-                servo_avion.setPosition(0.12);
+            if (gamepad1.dpad_right) {
+                bratDR.setPosition(0.2066);
+                bratST.setPosition(0.2066);
+                rotire.setPosition(0.63333);
             }
 
-            if (gamepad2.y) {
-                servo_DR.setPosition(0.1);
-                servo_ST.setPosition(0.1);
+            if (gamepad1.dpad_up) {
+                avion.setPosition(0.12);
             }
+
+            if (gamepad1.x) {
+                motor_intake.setPower(0.87);
+                CR7.setPower(1);
+                servoST.setPosition(0.508333);
+                servoDR.setPosition(0.682777);
+            }
+
+            else {
+                motor_intake.setPower(0);
+                CR7.setPower(0);
+            }
+
+            telemetry.addData("Clapite: ", clapitaST.getPosition());
+
+            telemetry.update();
         }
-
     }
 }
-
-

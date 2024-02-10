@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.Meeturi.Autonom;
+package org.firstinspires.ftc.teamcode.Vechi.FocsaniTechChallenge.Autonom;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Detection.blue.DetectionClass_blue;
 import org.firstinspires.ftc.teamcode.Detection.blue.TeamProp_blue;
 import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
 
-
+@Disabled
 @Autonomous(name = "Albastru aproape")
 public class CloseBlue_auto extends LinearOpMode {
     DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;

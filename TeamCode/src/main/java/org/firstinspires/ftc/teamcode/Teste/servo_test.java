@@ -3,37 +3,85 @@ package org.firstinspires.ftc.teamcode.Teste;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Servo test", group = "Test")
 public class servo_test extends LinearOpMode {
-    Servo servo_extindere, servo_rotire, servoC_DR, servoC_ST;
+    Servo servoST, servoDR, rotire, bratDR, bratST;
+    CRServo servoNFS;
+    DcMotorEx motorlant;
     double modifier = 0.0001;
 
     double change_modifier = 0.00000005;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        servo_extindere = hardwareMap.get(Servo.class, "servo_extindere");
-        servo_rotire = hardwareMap.get(Servo.class, "servo_rotire");
-        //servoC_DR = hardwareMap.get(Servo.class, "servo_avion"); //servoC_DR
-        servoC_ST = hardwareMap.get(Servo.class, "servoC_ST");
-        //servoC_DR.setPosition(0.79); //0.078333
-        servoC_ST.setPosition(0.217);
-        servo_rotire.setPosition(0.43777);
-        //servo_extindere.setPosition(0.6127);
+        servoDR = hardwareMap.get(Servo.class, "clapitaDR");
+        servoST = hardwareMap.get(Servo.class, "clapitaST");
+        bratDR = hardwareMap.get(Servo.class, "bratDR");
+        bratST = hardwareMap.get(Servo.class, "bratST");
+        rotire = hardwareMap.get(Servo.class, "rotire");
+
+        servoDR.setPosition(0.6183);
+        servoST.setPosition(0.4155);
+
         waitForStart();
 
 
         while (opModeIsActive()) {
-            if(gamepad1.a){
-                //servo_extindere.setPosition(servo_extindere.getPosition() + modifier);
-                servoC_DR.setPosition(servoC_DR.getPosition() - modifier);
 
+            /*if(gamepad1.a){
+                servoST.setPosition(0.508333);
+                servoDR.setPosition(0.682777);
             }
             else if(gamepad1.b){
-                servoC_DR.setPosition(servoC_DR.getPosition() + modifier);
+                servoDR.setPosition(0);
+                servoST.setPosition(1);
             }
+
+            if(gamepad1.x) {
+                motorlant.setPower(0.87);
+                servoNFS.setPower(1);
+            }
+            else {
+                motorlant.setPower(0);
+                servoNFS.setPower(0);
+            }
+
+             */
+
+
+
+
+            /*
+            if(gamepad1.x){
+                servoST.setPosition(servoST.getPosition() - modifier);
+            }
+            else if(gamepad1.y){
+                servoST.setPosition(servoST.getPosition() + modifier);
+            }
+
+             */
+
+            if (gamepad1.a) {
+                rotire.setPosition(rotire.getPosition() - modifier);
+            }
+            else if (gamepad1.b) {
+                rotire.setPosition(rotire.getPosition() + modifier);
+            }
+
+            /*
+            if(gamepad1.a){
+                servoDR.setPosition(servoDR.getPosition() - modifier);
+            }
+            else if(gamepad1.b){
+                servoDR.setPosition(servoDR.getPosition() + modifier);
+            }
+
+            */
+
             if(gamepad1.dpad_up){
                 modifier += change_modifier;
             }
@@ -41,26 +89,10 @@ public class servo_test extends LinearOpMode {
                 modifier -= change_modifier;
             }
 
-            if(gamepad1.x) {
-                //servoC_DR.setPosition(servoC_DR.getPosition() - modifier);
-                servoC_ST.setPosition(servoC_ST.getPosition() - modifier);
-            }
-            else if (gamepad1.y) {
-                //servoC_DR.setPosition(servoC_DR.getPosition() + modifier);
-                servoC_ST.setPosition(servoC_ST.getPosition() + modifier);
-            }
 
-            if (gamepad1.left_bumper) {
-                servo_rotire.setPosition(servo_rotire.getPosition() - modifier);
-            }
-            else if (gamepad1.right_bumper) {
-                servo_rotire.setPosition(servo_rotire.getPosition() + modifier);
-            }
 
-            telemetry.addData("servo_extindere: ", servo_extindere.getPosition());
-            telemetry.addData("servo_rotire: ", servo_rotire.getPosition());
-            //telemetry.addData("servoC_DR", servoC_DR.getPosition());
-            telemetry.addData("servoC_ST: ", servoC_ST.getPosition());
+
+            telemetry.addData("rotire: ", rotire.getPosition());
             telemetry.addData("MODIFIER", modifier);
             telemetry.addData("CHANGE MODIFIER", change_modifier);
 

@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.Meeturi.Module;
+package org.firstinspires.ftc.teamcode.Vechi.FocsaniTechChallenge.Module_FocsaniTechChallenge;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 

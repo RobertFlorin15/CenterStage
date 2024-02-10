@@ -12,10 +12,11 @@ import org.firstinspires.ftc.teamcode.Detection.blue.DetectionClass_blue;
 import org.firstinspires.ftc.teamcode.Detection.blue.TeamProp_blue;
 import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
 
-
-@Autonomous(name = "Albastru departe")
-public class FarBlue_auto extends LinearOpMode {
+@Autonomous(name = "Albastru")
+public class BLUE extends LinearOpMode {
     DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;
+
+    public Servo clapitaDR, clapitaST, bratDR, bratST, rotire, avion, servoDR, servoST;
 
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
@@ -24,12 +25,11 @@ public class FarBlue_auto extends LinearOpMode {
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.4;
-    // static final double TURN_SPEED = 0.3;
+    //static final double TURN_SPEED = 0.3;
+    public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servo_DR, servo_ST;
+
     ElapsedTime runtime = new ElapsedTime();
-    ElapsedTime rotire = new ElapsedTime();
-
-    public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servo_DR, servo_ST, servo_avion;
-
+    //ElapsedTime rotire = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,19 +37,29 @@ public class FarBlue_auto extends LinearOpMode {
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        servo_DR = hardwareMap.get(Servo.class, "servo_DR");
-        servo_ST = hardwareMap.get(Servo.class, "servo_ST");
-        servoC_DR = hardwareMap.get(Servo.class, "servoC_DR");
-        servoC_ST = hardwareMap.get(Servo.class, "servoC_ST");
-        servo_extindere = hardwareMap.get(Servo.class, "servo_extindere");
-        servo_rotire = hardwareMap.get(Servo.class, "servo_rotire");
-        servo_avion = hardwareMap.get(Servo.class, "servo_avion");
+        clapitaDR = hardwareMap.get(Servo.class, "clapitaDR");
+        clapitaST = hardwareMap.get(Servo.class, "clapitaST");
+        bratDR = hardwareMap.get(Servo.class, "bratDR");
+        bratST = hardwareMap.get(Servo.class, "bratST");
+        rotire = hardwareMap.get(Servo.class, "rotire");
+        avion = hardwareMap.get(Servo.class, "avion");
+        servoDR = hardwareMap.get(Servo.class, "servoDR");
+        servoST = hardwareMap.get(Servo.class, "servoST");
+
+        clapitaDR.setPosition(0.8);
+        clapitaST.setPosition(0.216);
+        bratST.setPosition(0);
+        bratST.setPosition(0);
+        rotire.setPosition(0.78);
+        avion.setPosition(0.04833);
+
 
         //motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
+        //avion = hardwareMap.get(Servo.class, "avion");
         DetectionClass_blue detectare = new DetectionClass_blue(hardwareMap);
         TeamProp_blue.Location TeamProp_location = TeamProp_blue.Location.LEFT;
 
-        //motoarele din stanga sunt in onglida, asa ca primesc REVERSE pentru a se roti in directia FORWARD
+        //motoarele din stanga sunt in oglinda, asa ca primesc REVERSE pentru a se roti in directia FORWARD
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         //motor_intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -77,15 +87,10 @@ public class FarBlue_auto extends LinearOpMode {
                 rightBack.getCurrentPosition());
         telemetry.update();
 
-        servoC_DR.setPosition(0.79);
-        servoC_ST.setPosition(0.217);
-        servo_DR.setPosition(0.097);
-        servo_ST.setPosition(0.097);
-        servo_rotire.setPosition(0.43777);
-        servo_extindere.setPosition(0.6127);
-        servo_avion.setPosition(0.04833);
 
         detectare.init();
+
+
 
         //avion.setPosition(0.64444);
 
@@ -99,24 +104,25 @@ public class FarBlue_auto extends LinearOpMode {
 
 
         if (TeamProp_location == TeamProp_blue.Location.LEFT) {
-            encoderDrive(DRIVE_SPEED, 26, 26, 4);
-            encoderDrive(DRIVE_SPEED, -23, 23, 4);
-            encoderDrive(DRIVE_SPEED, -69, -69, 4);
-        }
+            encoderDrive(0.3, 29,29, 4);
+            encoderDrive(0.3, -23, 23, 4);
+            encoderDrive(0.3, 3.5, 3.5, 4);
+            encoderDrive(0.3, -4, -4, 4);
 
+        }
         else if (TeamProp_location == TeamProp_blue.Location.RIGHT) {
-            encoderDrive(DRIVE_SPEED, 26, 26, 4);
-            encoderDrive(DRIVE_SPEED, -23, 23, 4);
-            encoderDrive(DRIVE_SPEED, -69, -69, 4);
+            encoderDrive(0.3, 27,27, 4);
+            encoderDrive(0.3, 23, -23, 4);
+            encoderDrive(0.3, 2, 2, 4);
+            encoderDrive(0.3, -4, -4, 4);
 
         }
 
         else {
-            encoderDrive(DRIVE_SPEED, 26, 26, 4);
-            encoderDrive(DRIVE_SPEED, -23, 23, 4);
-            encoderDrive(DRIVE_SPEED, -69, -69, 4);
-        }
+            encoderDrive(0.3, 30, 30, 4);
+            encoderDrive(0.3, -4, -4, 4);
 
+        }
 
 
     }
@@ -178,5 +184,8 @@ public class FarBlue_auto extends LinearOpMode {
 
             sleep(250);   // optional pause after each move.
         }
+
+
     }
+
 }

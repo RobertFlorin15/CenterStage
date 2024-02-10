@@ -15,14 +15,11 @@ public class Brat_test extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        servoDR = hardwareMap.get(Servo.class, "servoDR" );
-        servoST = hardwareMap.get(Servo.class, "servoST");
-        servo_extindere = hardwareMap.get(Servo.class,"servo_extindere");
-        servo_rotire = hardwareMap.get(Servo.class,"servo_rotire");
-        servoC_DR = hardwareMap.get(Servo.class,"servoC_DR");
-        servoC_ST = hardwareMap.get(Servo.class,"servoC_ST");
-        servoDR.setPosition(0.0822222);
-        servoST.setPosition(0.0822222);
+        servoDR = hardwareMap.get(Servo.class, "bratDR");
+        servoST = hardwareMap.get(Servo.class, "bratST");
+
+        servoDR.setPosition(0.0);
+        servoST.setPosition(0.0);
         waitForStart();
 
 
@@ -34,21 +31,6 @@ public class Brat_test extends LinearOpMode {
             else if(gamepad1.b) {
                 servoDR.setPosition(servoDR.getPosition() - modifier);
                 servoST.setPosition(servoST.getPosition() - modifier);
-
-            }
-
-            if (gamepad1.dpad_left) {
-                servo_extindere.setPosition(servo_extindere.getPosition() - modifier);
-            }
-            else if (gamepad1.dpad_right) {
-                servo_extindere.setPosition(servo_extindere.getPosition() + modifier);
-            }
-
-            if (gamepad1.left_bumper) {
-                servo_rotire.setPosition(1);
-            }
-            else if (gamepad1.right_bumper) {
-                servo_rotire.setPosition(0.415);
             }
 
             if(gamepad1.dpad_up){
@@ -62,8 +44,6 @@ public class Brat_test extends LinearOpMode {
 
             telemetry.addData("SERVO DREAPTA: ", servoDR.getPosition());
             telemetry.addData("SERVO STANGA: ", servoST.getPosition());
-            telemetry.addData("SERVO EXTINDERE: ",servo_extindere.getPosition());
-            telemetry.addData("SERVO ROTIRE: ",servo_rotire.getPosition());
             telemetry.addData("MODIFIER", modifier);
             telemetry.addData("CHANGE MODIFIER", change_modifier);
 

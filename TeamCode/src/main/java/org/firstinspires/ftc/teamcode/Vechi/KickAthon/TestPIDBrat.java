@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.KickAthon;
+package org.firstinspires.ftc.teamcode.Vechi.KickAthon;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
