@@ -23,9 +23,9 @@ public class Test_glisiere extends LinearOpMode {
         motorDR = hardwareMap.get(DcMotorEx.class, "motorDR");
         motorST = hardwareMap.get(DcMotorEx.class, "motorST");
 
-        bratDR = hardwareMap.get(Servo.class, "bratDR");
-        bratST = hardwareMap.get(Servo.class, "bratST");
-        rotire = hardwareMap.get(Servo.class, "rotire");
+        bratDR = hardwareMap.get(Servo.class, "servoDR");
+        bratST = hardwareMap.get(Servo.class, "servoST");
+        //rotire = hardwareMap.get(Servo.class, "rotire");
 
         motorDR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorST.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -35,7 +35,7 @@ public class Test_glisiere extends LinearOpMode {
 
         bratDR.setPosition(0);
         bratST.setPosition(0);
-        rotire.setPosition(0.98111);
+        //rotire.setPosition(0.98111);
         waitForStart();
 
         if(isStopRequested()) return;
@@ -62,7 +62,7 @@ public class Test_glisiere extends LinearOpMode {
                 power-=0.00001;
             }
 
-            /*if(gamepad1.left_bumper){
+            if(gamepad1.left_bumper){
                 motorST.setDirection(DcMotorSimple.Direction.FORWARD);
                 motorDR.setDirection(DcMotorSimple.Direction.REVERSE);
             }
@@ -71,7 +71,7 @@ public class Test_glisiere extends LinearOpMode {
                 motorDR.setDirection(DcMotorSimple.Direction.FORWARD);
             }
 
-             */
+
 
             if(gamepad1.x) {
                 bratDR.setPosition(bratDR.getPosition() + modifier);
@@ -89,13 +89,6 @@ public class Test_glisiere extends LinearOpMode {
                 modifier -= change_modifier;
             }
 
-            if (gamepad1.right_bumper) {
-                rotire.setPosition(rotire.getPosition() + modifier);
-            }
-
-            if (gamepad1.left_bumper) {
-                rotire.setPosition(rotire.getPosition() - modifier);
-            }
 
 
 
@@ -104,7 +97,6 @@ public class Test_glisiere extends LinearOpMode {
             telemetry.addData("motorST: ", motorST.getDirection());
             telemetry.addData("SERVO DREAPTA: ", bratDR.getPosition());
             telemetry.addData("SERVO STANGA: ", bratST.getPosition());
-            telemetry.addData("rotire: ", rotire.getPosition());
             telemetry.addData("MODIFIER", modifier);
             telemetry.addData("CHANGE MODIFIER", change_modifier);
 
