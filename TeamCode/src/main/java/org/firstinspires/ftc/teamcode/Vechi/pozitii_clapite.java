@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Vechi;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+@Disabled
 @TeleOp(name = "Test Clapite", group = "Test")
 public class pozitii_clapite extends LinearOpMode {
     Servo clapitaST, clapitaDR;

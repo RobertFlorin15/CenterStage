@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Vechi;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
-
+@Disabled
 @TeleOp(name = "Identificare pozitie", group = "Test")
 public class PozitiiServo_test extends LinearOpMode {
     public Servo servoC_DR, servoC_ST, servo_rotire, servo_extindere, servoDR, servoST;

@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Teste;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
+@Disabled
 @TeleOp (name = "Test senzor de distanta care e de fapt de culoare, el nebun")
 public class ColorDistanceSensor extends LinearOpMode {
     ColorRangeSensor sensor1, sensor2;

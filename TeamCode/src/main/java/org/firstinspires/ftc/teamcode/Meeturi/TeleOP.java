@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Meeturi;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+@Disabled
 @TeleOp (name = "TeleOP original 1 dimineata IASI MERGE 84% - 5 erori deja")
 public class TeleOP extends LinearOpMode {
     public DcMotorEx motorDR, motorST, motor_intake;

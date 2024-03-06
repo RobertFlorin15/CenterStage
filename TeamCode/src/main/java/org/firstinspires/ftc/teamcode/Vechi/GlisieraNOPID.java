@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Vechi;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+@Disabled
 @TeleOp (name = "NONOPID_GLISIERE")
 public class GlisieraNOPID extends LinearOpMode {
     public DcMotorEx motorDR, motorST;

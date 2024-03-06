@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Detection.blue;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-
+@Disabled
 @Autonomous(name = "Vision_blue", group = "Test")
 public class Test_blue extends LinearOpMode {
     TeamProp_blue detection = new TeamProp_blue();

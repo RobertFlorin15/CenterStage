@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Detection.blue.DetectionClass_blue;
 import org.firstinspires.ftc.teamcode.Detection.blue.TeamProp_blue;
 import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
-
+@Disabled
 @Autonomous(name = "Albastru")
 public class BLUE extends LinearOpMode {
     DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;

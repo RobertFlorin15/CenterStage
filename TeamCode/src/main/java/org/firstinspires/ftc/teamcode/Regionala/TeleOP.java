@@ -83,6 +83,8 @@ public class TeleOP extends LinearOpMode {
                 brat.open();
             }
 
+
+
             glisiera.update();
 
         }
