@@ -42,4 +42,11 @@ public class BratModule {
     }
     public void close() {cuva_inchidere.setPosition(0);}
 
+    public void autonom() {
+        servoDR.setPosition(0.64555);
+        servoST.setPosition(0.64555);
+        rotire_cuva.setPosition(0.19722);
+
+    }
+
 }
