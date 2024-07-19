@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-@Disabled
+
 @Autonomous(name = "TEST_HOMOSAPIENS", group = "Test")
 public class Test_Homosapiens extends LinearOpMode {
     Camera detection = new Camera();

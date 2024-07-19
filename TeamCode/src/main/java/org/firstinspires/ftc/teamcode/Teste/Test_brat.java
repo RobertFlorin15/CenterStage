@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.Teste;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Regionala.Modules.GlisieraModule;
+import org.firstinspires.ftc.teamcode.Nationala.Modules.GlisieraModule;
 
 @TeleOp (name = "Test BRAT FORTA AXON te rog sa nu bubuie iar robotul")
 public class Test_brat extends LinearOpMode {
@@ -25,9 +24,9 @@ public class Test_brat extends LinearOpMode {
         rotire_cuva.setPosition(0.1044); //prindere pixeli
         //servo_inchidere.setPosition(0);
 
-        GlisieraModule glisieraModule = new GlisieraModule(hardwareMap);
+        //GlisieraModule glisieraModule = new GlisieraModule(hardwareMap);
 
-        glisieraModule.init();
+        //glisieraModule.init();
 
         waitForStart();
 
@@ -65,11 +64,16 @@ public class Test_brat extends LinearOpMode {
                 servoST.setPosition(0.3);
             }
 
-            if (gamepad1.dpad_up) {
-                glisieraModule.goLow();
+            /*if (gamepad1.dpad_up) {
+                glisieraModule.goMid();
+            }
+            if (gamepad1.dpad_down) {
+                glisieraModule.goDown();
             }
 
             glisieraModule.update();
+
+             */
 
 
             telemetry.addData("Pozitie DR: ", servoDR.getPosition());

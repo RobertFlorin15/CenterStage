@@ -46,8 +46,8 @@ public class TeamProp_blue extends OpenCvPipeline {
 
 
         //intervalul din HSV pentru albastru
-        Scalar lowHSV_blue = new Scalar(100, 25, 25); //110 50 50
-        Scalar highHSV_blue = new Scalar(150, 255, 255); //130
+        Scalar lowHSV_blue = new Scalar(100, 70, 70); //100 25 25
+        Scalar highHSV_blue = new Scalar(130, 220, 220); //130, 255, 255
 
         /*thresholding, adica segmentarea imaginii, mai exact separam obiectele ce se incadreaza
         in aceste intervale de culoare din spectrul  HSV de restul imaginii

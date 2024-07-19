@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Detection.blue.TeamProp_blue;
 import org.firstinspires.ftc.teamcode.Detection.red.TeamProp_red;
 
 @Disabled
-@Autonomous(name = "Albastru departe")
+@Autonomous(name = "Albastru altceva")
 public class FarBlue_auto extends LinearOpMode {
     DcMotorEx rightFront, rightBack, leftFront, leftBack, motor_intake;
 

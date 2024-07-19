@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.Regionala.Modules;
+package org.firstinspires.ftc.teamcode.Nationala.Modules;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
 
 public class GlisieraModule {
     HardwareMap hardwareMap;
@@ -16,6 +17,11 @@ public class GlisieraModule {
     public DcMotorEx motorST_ENC = null;
     public DcMotorEx motorDR = null;
     PIDController controller = new PIDController(kp, ki, kd);
+
+    int modifier = 1;
+
+    int poz_max = 2000;
+    int poz_min = 0;
 
 
     public void init() {
@@ -48,19 +54,33 @@ public class GlisieraModule {
     }
 
     public void goUp(){
+        controller.setSetPoint(2000);
+    }
+    public void goUp_Ciprica(){
         controller.setSetPoint(1800);
     }
 
     public void goDown(){
-        controller.setSetPoint(0);
+        controller.setSetPoint(3);
     }
 
     public void goMid(){
-        controller.setSetPoint(500);
+        controller.setSetPoint(850);
     }
-    public void goLow() {
+    public void goLow_Ciprica() {
         controller.setSetPoint(250);
     }
+    public void goLow() {
+        controller.setSetPoint(450);
+    }
+    public void goDown_autonom() {
+        controller.setSetPoint(1300);
+    }
+
+    public void goNicu() {
+        controller.setSetPoint(150);
+    }
+
 
 }
 

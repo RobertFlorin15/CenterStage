@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Disabled
-@TeleOp(name = "Test GLisiere")
+
+@TeleOp(name = "Test GLisiere pentru VLD CIP")
 public class Test_glisiere extends LinearOpMode {
     public DcMotorEx motorDR, motorST;
 

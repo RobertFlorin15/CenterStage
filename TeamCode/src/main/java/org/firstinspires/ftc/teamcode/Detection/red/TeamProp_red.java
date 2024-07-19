@@ -44,8 +44,8 @@ public class TeamProp_red extends OpenCvPipeline {
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
 
         //intervalul din HSV pentru rosu
-        Scalar lowHSV_red = new Scalar(0, 35, 50); //0, 50, 70
-        Scalar highHSV_red = new Scalar(45, 255, 255); //30
+        Scalar lowHSV_red = new Scalar(0, 100, 100); //0, 35, 50
+        Scalar highHSV_red = new Scalar(10, 255, 255); //30, 255, 255
 
 
 

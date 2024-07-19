@@ -107,7 +107,6 @@ public class CloseBlue_auto extends LinearOpMode {
             encoderDrive(DRIVE_SPEED, -27.5, -27.5, 4);
             encoderDrive(DRIVE_SPEED, -23, 23, 4);
             encoderDrive(DRIVE_SPEED, -23, -23, 4);
-            //kill f.g.
         }
 
 

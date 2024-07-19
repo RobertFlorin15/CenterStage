@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Regionala.Modules;
+package org.firstinspires.ftc.teamcode.Nationala.Modules;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -16,16 +16,18 @@ public class IntakeModule {
     public DcMotorEx motor_intake;
     public CRServo CR7;
 
-    public Servo coborare_intake;
+    public Servo coborare_intake,avion;
 
     public void init() {
         motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
         CR7 = hardwareMap.get(CRServo.class, "CR7");
         coborare_intake = hardwareMap.get(Servo.class, "coborare_intake");
+        avion = hardwareMap.get(Servo.class, "avion");
 
         CR7.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        coborare_intake.setPosition(0.5355);
+        coborare_intake.setPosition(0.44);
+        avion.setPosition(0);
 
     }
 
@@ -40,5 +42,9 @@ public class IntakeModule {
     public void da_la_rate_pixeli() {
         motor_intake.setPower(-1);
         CR7.setPower(-1);
+    }
+
+    public void avion() {
+        avion.setPosition(0.75);
     }
 }

@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.Regionala.Modules;
+package org.firstinspires.ftc.teamcode.Nationala.Modules;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class AutonomModule {
     HardwareMap hardwareMap;
@@ -20,7 +23,11 @@ public class AutonomModule {
     public DcMotorEx motorDR = null;
     public DcMotorEx motor_intake;
     public CRServo CR7;
+
+    ElapsedTime timp_prindere = new ElapsedTime();
     PIDController controller = new PIDController(kp, ki, kd);
+
+    ColorRangeSensor sensor1, sensor2;
 
     ElapsedTime timp = new ElapsedTime();
 
@@ -44,12 +51,15 @@ public class AutonomModule {
         motor_intake = hardwareMap.get(DcMotorEx.class, "motor_intake");
         CR7 = hardwareMap.get(CRServo.class, "CR7");
         coborare_intake = hardwareMap.get(Servo.class, "coborare_intake");
+
+        sensor1 = hardwareMap.get(ColorRangeSensor.class, "sensor1");
+        sensor2 = hardwareMap.get(ColorRangeSensor.class, "sensor2");
         //opritor = hardwareMap.get(Servo.class, "opritor");
 
 
         CR7.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        coborare_intake.setPosition(0.5355);
+        coborare_intake.setPosition(0);
 
         //brat
         servoDR = hardwareMap.get(Servo.class, "servoDR");
@@ -57,10 +67,14 @@ public class AutonomModule {
         rotire_cuva = hardwareMap.get(Servo.class, "rotire_cuva");
         cuva_inchidere = hardwareMap.get(Servo.class, "cuva_inchidere");
 
+        opritor = hardwareMap.get(Servo.class, "opritoare_sus");
+
         servoST.setPosition(0);
         servoDR.setPosition(0);
         rotire_cuva.setPosition(0.1044);
+        opritor.setPosition(0.234);
         cuva_inchidere.setPosition(0);
+        timp_prindere.reset();
     }
 
     public void update() {
@@ -75,10 +89,11 @@ public class AutonomModule {
     }
 
     public void goUp1() {
-        controller.setSetPoint(250);
-        servoDR.setPosition(0.72722); //0.7005
-        servoST.setPosition(0.72722);
-        rotire_cuva.setPosition(0.2933); //0.24944
+        controller.setSetPoint(200);
+        servoDR.setPosition(0.575); //0.7005
+        servoST.setPosition(0.575);
+        rotire_cuva.setPosition(0.2605); //0.24944
+        coborare_intake.setPosition(0.535); //0.535
     }
 
     public void goDown() {
@@ -94,17 +109,11 @@ public class AutonomModule {
     }
 
     public void scuipa() {
-        motor_intake.setPower(-0.5);
+        motor_intake.setPower(-0.35);
         CR7.setPower(-1);
     }
 
-    public void trage1() {
-        motor_intake.setPower(1);
-        CR7.setPower(1);
-        coborare_intake.setPosition(0.8);
-    }
-
-    public void trage2() {
+    public void trage() {
         motor_intake.setPower(1);
         CR7.setPower(1);
     }
@@ -113,6 +122,35 @@ public class AutonomModule {
         motor_intake.setPower(0);
         CR7.setPower(0);
     }
+
+    public void coborare_intake1() {
+        coborare_intake.setPosition(0.2);
+    }
+
+    public void glisiera_departe() {
+        controller.setSetPoint(200);
+    }
+
+    public void ridica_pentrustack() {
+        coborare_intake.setPosition(0.1905);
+    }
+    public void trage_auto1(){
+        coborare_intake.setPosition(0.1905);
+        motor_intake.setPower(1);
+        CR7.setPower(1);
+    }
+
+    public void trage_auto2(){
+        coborare_intake.setPosition(0.37);
+        motor_intake.setPower(1);
+        CR7.setPower(1);
+    }
+
+    public void scuipa_perie() {
+        motor_intake.setPower(-0.5);
+    }
+
+    //0.2166
 
 
 }
