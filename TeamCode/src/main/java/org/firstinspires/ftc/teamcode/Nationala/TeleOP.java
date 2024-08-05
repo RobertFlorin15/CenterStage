@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.Nationala;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.Vector2d;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Nationala.Modules.BratModule;
 import org.firstinspires.ftc.teamcode.Nationala.Modules.GlisieraModule;
 import org.firstinspires.ftc.teamcode.Nationala.Modules.IntakeModule;
 import org.firstinspires.ftc.teamcode.Nationala.Modules.SensorModule;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.RoadRunner.MecanumDrive;
 
 @TeleOp (name = "TeleOP_adevărat")
 public class TeleOP extends LinearOpMode {
@@ -19,9 +22,7 @@ public class TeleOP extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         GlisieraModule glisiera = new GlisieraModule(hardwareMap);
         IntakeModule intake = new IntakeModule(hardwareMap);
@@ -57,15 +58,15 @@ public class TeleOP extends LinearOpMode {
 
 
 
-            drive.setWeightedDrivePower(
-                    new Pose2d(
-                            - gamepad1.left_stick_y * mod,
-                            - gamepad1.left_stick_x * mod,
-                            - gamepad1.right_stick_x * mod
-                    )
-            );
+            drive.setDrivePowers(new PoseVelocity2d(
+                    new Vector2d(
+                             gamepad1.left_stick_y * mod,
+                             gamepad1.left_stick_x * mod
+                    ),
+                 gamepad1.right_stick_x * mod
+            ));
 
-            drive.update();
+            drive.updatePoseEstimate();
 
             if (gamepad2.right_trigger > 0.1) {
                 intake.mananca_pixeli();

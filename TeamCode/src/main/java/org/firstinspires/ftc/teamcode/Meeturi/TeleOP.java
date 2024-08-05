@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Meeturi;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
+//import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+//import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Disabled
 @TeleOp (name = "TeleOP original 1 dimineata IASI MERGE 84% - 5 erori deja")
 public class TeleOP extends LinearOpMode {
@@ -22,9 +22,11 @@ public class TeleOP extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        /*SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+         */
 
         motorDR = hardwareMap.get(DcMotorEx.class, "motorDR");
         motorST = hardwareMap.get(DcMotorEx.class, "motorST");
@@ -65,7 +67,7 @@ public class TeleOP extends LinearOpMode {
                 mod = 0.5;
             }
 
-            drive.setWeightedDrivePower(
+            /*drive.setWeightedDrivePower(
                     new Pose2d(
                             gamepad1.left_stick_y * mod,
                             gamepad1.left_stick_x * mod,
@@ -74,6 +76,8 @@ public class TeleOP extends LinearOpMode {
             );
 
             drive.update();
+
+             */
 
             if (gamepad1.a) {
                 clapitaDR.setPosition(0.89);
