@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Nationala;
+package org.firstinspires.ftc.teamcode.BTC;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
@@ -6,7 +6,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Nationala.Modules.BratModule;
@@ -60,10 +59,10 @@ public class TeleOP extends LinearOpMode {
 
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
-                             gamepad1.left_stick_y * mod,
-                             gamepad1.left_stick_x * mod
+                             -gamepad1.left_stick_y * mod,
+                             -gamepad1.left_stick_x * mod
                     ),
-                 gamepad1.right_stick_x * mod
+                 -gamepad1.right_stick_x * mod
             ));
 
             drive.updatePoseEstimate();

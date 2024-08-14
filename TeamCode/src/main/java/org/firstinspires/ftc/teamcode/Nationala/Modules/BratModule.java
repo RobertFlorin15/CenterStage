@@ -26,8 +26,8 @@ public class BratModule {
     }
 
     public void goDown() {
-        servoST.setPosition(0.0485); //0.0444
-        servoDR.setPosition(0.0485);
+        servoST.setPosition(0.06); //0.0444
+        servoDR.setPosition(0.06);
         rotire_cuva.setPosition(0.10388);//0.1044
 
     }

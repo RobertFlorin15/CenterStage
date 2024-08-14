@@ -16,7 +16,7 @@ public class Test_oneservo extends LinearOpMode {
     //avion=0.62
     @Override
     public void runOpMode() throws InterruptedException {
-        servo = hardwareMap.get(Servo.class, "avion");
+        servo = hardwareMap.get(Servo.class, "servoST");
         motor = hardwareMap.get(DcMotorEx.class, "motor_intake");
         CR7 = hardwareMap.get(CRServo.class, "CR7");
         opritor = hardwareMap.get(Servo.class, "opritoare_sus");
